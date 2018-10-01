@@ -1,2 +1,2 @@
-# M3ndel
+# 20105 Group Project
 GroupPorject-DatasetHandling
