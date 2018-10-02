@@ -1,5 +1,10 @@
 #include "Record.h"
 
+Record::~Record()
+{
+	delete[] genres;
+}
+
 void Record::setTconst(istream & infile)
 {
 	infile >> tconst;

@@ -15,6 +15,7 @@ private:
 	string genres[3] = { "", "", ""};
 
 public:
+	~Record();
 	void setTconst(istream&);
 	void setTitleType(istream&);
 	void setPrimaryTitle(istream&);
