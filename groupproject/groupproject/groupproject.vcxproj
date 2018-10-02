@@ -116,11 +116,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Record.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="DataSet_Required\DataSet1_1000.txt" />
     <Text Include="DataSet_Required\DataSet2_2000.txt" />
     <Text Include="DataSet_Required\DataSet3_5000.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Record.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
