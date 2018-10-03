@@ -32,6 +32,9 @@
     <Text Include="DataSet_Required\DataSet3_5000.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="test.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Record.h">

@@ -122,6 +122,7 @@
     <Text Include="DataSet_Required\DataSet1_1000.txt" />
     <Text Include="DataSet_Required\DataSet2_2000.txt" />
     <Text Include="DataSet_Required\DataSet3_5000.txt" />
+    <Text Include="test.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Record.h" />

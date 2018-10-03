@@ -1,5 +1,12 @@
 #include "Record.h"
 
+Record::Record()
+{
+	genres[0] = "";
+	genres[1] = "";
+	genres[2] = "";
+}
+
 Record::~Record()
 {
 	delete[] genres;
@@ -7,6 +14,15 @@ Record::~Record()
 
 void Record::setTconst(istream & infile)
 {
+	char temp;
+	infile.ignore(); // to ignore 't'
+	infile.ignore(); // to ignore 't'
+	
+	do {
+		infile.get(temp);
+	} while (temp == '0');
+
+	infile.unget();
 	infile >> tconst;
 }
 
@@ -66,6 +82,7 @@ void Record::setGenres(istream & infile)
 			}
 		}
 	}
+	infile.ignore(); // to ignore "\n"
 }
 
 void Record::setRecord(istream& infile)

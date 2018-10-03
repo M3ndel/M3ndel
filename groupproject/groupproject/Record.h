@@ -7,14 +7,15 @@ using namespace std;
 
 class Record {
 private:
-	string tconst;
+	long tconst;
 	string titleType;
 	string primaryTitle = "";
 	int startYear = -1;
 	int runtimeMintes = -1;
-	string genres[3] = { "", "", ""};
+	string* genres = new string[3];
 
 public:
+	Record();
 	~Record();
 	void setTconst(istream&);
 	void setTitleType(istream&);
