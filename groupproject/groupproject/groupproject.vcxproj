@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="123.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Record.cpp" />
   </ItemGroup>
