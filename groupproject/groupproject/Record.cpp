@@ -2,6 +2,9 @@
 
 Record::Record()
 {
+	primaryTitle = "";
+	startYear = -1;
+	runtimeMintes = -1;
 	genres[0] = "";
 	genres[1] = "";
 	genres[2] = "";
@@ -83,6 +86,36 @@ void Record::setGenres(istream & infile)
 		}
 	}
 	infile.ignore(); // to ignore "\n"
+}
+
+long Record::getTconst(istream &)
+{
+	return tconst;
+}
+
+string Record::getTitleType(istream &)
+{
+	return titleType;
+}
+
+string Record::getPrimaryTitle(istream &)
+{
+	return primaryTitle;
+}
+
+int Record::getStartYear(istream &)
+{
+	return startYear;
+}
+
+int Record::getRunTimeMintes(istream &)
+{
+	return runtimeMintes;
+}
+
+string * Record::getGenres(istream &)
+{
+	return genres;
 }
 
 void Record::setRecord(istream& infile)

@@ -9,9 +9,9 @@ class Record {
 private:
 	long tconst;
 	string titleType;
-	string primaryTitle = "";
-	int startYear = -1;
-	int runtimeMintes = -1;
+	string primaryTitle;
+	int startYear;
+	int runtimeMintes;
 	string* genres = new string[3];
 
 public:
@@ -23,6 +23,13 @@ public:
 	void setStartYear(istream&);
 	void setRunTimeMintes(istream&);
 	void setGenres(istream&);
+
+	long getTconst(istream&);
+	string getTitleType(istream&);
+	string getPrimaryTitle(istream&);
+	int getStartYear(istream&);
+	int  getRunTimeMintes(istream&);
+	string* getGenres(istream&);
 
 	void setRecord(istream&);
 

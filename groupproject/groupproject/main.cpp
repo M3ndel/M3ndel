@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include "Record.h"
+#include <ctime>
 using namespace std;
 
 string chooseDataset();
@@ -14,11 +15,15 @@ int main() {
 	else
 		cout << "can't open the choosen file" << endl;
 
-	Record record[4];
-	for (int i = 0; i < 4; i++) {
+	clock_t start = clock();
+
+	Record record[5000];
+	int b = time(NULL);
+	for (int i = 0; i < 5000; i++) {
 		record[i].setRecord(infile);
-		record[i].printRecord();
 	}
+
+	cout << clock() - start << endl;
 
 	system("pause");
 	return 0;
