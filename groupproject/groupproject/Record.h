@@ -6,7 +6,8 @@
 using namespace std;
 
 class Record {
-private:
+public:
+	//enum titlekind {short, movie, tvMovie, tvShort, tvMiniSeries};
 	long tconst;
 	string titleType;
 	string primaryTitle = "";
