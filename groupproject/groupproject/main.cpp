@@ -18,17 +18,19 @@ int main() {
 	else
 		cout << "can't open the choosen file" << endl;
 
-	Record record;
-	for (int i = 0; i < 50000; i++) {
-		record.setRecord(infile);
-		string str = record.titleType;
-		for (int y = 0; y < 50; y++) {
-			if (str == type[y]) {
-				break;
-			}
-			else if (type[y] == ".") {
-				type[y] = str;
-				break;
+	
+	while (!infile.eof()) {
+		Record* record = new Record;
+		record->setRecord(infile);
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 50; j++) {
+				if (record->genres[i] == type[j] || record->genres[i] == "") {
+					break;
+				}
+				else if (type[j] == ".") {
+					type[j] = record->genres[i];
+					break;
+				}
 			}
 		}
 	}
