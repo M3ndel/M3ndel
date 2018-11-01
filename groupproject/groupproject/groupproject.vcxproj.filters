@@ -21,6 +21,9 @@
     <ClCompile Include="Record.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="linkList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="DataSet_Required\DataSet1_1000.txt">
@@ -35,9 +38,21 @@
     <Text Include="test.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="DataSet_Required\DataSet4_10000.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="DataSet_Required\DataSet5_50000.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Record.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UserPanel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
