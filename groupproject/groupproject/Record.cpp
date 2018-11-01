@@ -2,6 +2,9 @@
 
 Record::Record()
 {
+	primaryTitle = "";
+	startYear = -1;
+	runtimeMintes = -1;
 	genres[0] = "";
 	genres[1] = "";
 	genres[2] = "";

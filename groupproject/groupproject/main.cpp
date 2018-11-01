@@ -5,6 +5,7 @@
 #include "Record.h"
 #include "LinkList.h"
 #include "UserPanel.h"
+#include <ctime>
 using namespace std;
 
 int main() {
@@ -15,7 +16,6 @@ int main() {
 	else
 		cout << "can't open the choosen file" << endl;
 
-	
 	LinkList list;
 	clock_t start = clock();
 	while (!infile.eof()) {

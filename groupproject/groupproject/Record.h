@@ -34,15 +34,16 @@ public:
 	
 private:
 	// original building block of setRecord(istream&)
+	long getTconst(istream&);
+	string getTitleType(istream&);
+	string getPrimaryTitle(istream&);
+	int getStartYear(istream&);
+	int  getRunTimeMintes(istream&);
+	string* getGenres(istream&);
 
-	void setTconst(istream&);
-	void setTitleType(istream&);
-	void setPrimaryTitle(istream&);
-	void setStartYear(istream&);
-	void setruntimeMinutes(istream&);
-	void setGenres(istream&);
+	void setRecord(istream&);
 
-	
+	void printRecord();
 };
 
 #endif // !RECORD_H
