@@ -4,7 +4,7 @@ Record::Record()
 {
 	primaryTitle = "";
 	startYear = -1;
-	runtimeMintes = -1;
+	runtimeMinutes = -1;
 	genres[0] = "";
 	genres[1] = "";
 	genres[2] = "";
@@ -54,7 +54,7 @@ void Record::setStartYear(istream & infile)
 		infile >> startYear;
 }
 
-void Record::setruntimeMinutes(istream & infile)
+void Record::setRunTimeMinutes(istream & infile)
 {
 	char character;
 	infile.ignore(); // to ignore the tab spacing
@@ -105,7 +105,7 @@ void Record::setRecord(istream & infile)
 	setTitleType(infile);
 	setPrimaryTitle(infile);
 	setStartYear(infile);
-	setruntimeMinutes(infile);
+	setRunTimeMinutes(infile);
 	setGenres(infile);
 }
 
