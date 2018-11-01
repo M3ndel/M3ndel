@@ -5,12 +5,16 @@ Record::Record()
 	genres[0] = "";
 	genres[1] = "";
 	genres[2] = "";
+	next = NULL;
+	depth = 0;
 }
 
 Record::~Record()
 {
 	delete[] genres;
 }
+
+// original building block of setRecord(istream&)
 
 void Record::setTconst(istream & infile)
 {
@@ -47,19 +51,19 @@ void Record::setStartYear(istream & infile)
 		infile >> startYear;
 }
 
-void Record::setRunTimeMintes(istream & infile)
+void Record::setruntimeMinutes(istream & infile)
 {
 	char character;
 	infile.ignore(); // to ignore the tab spacing
 	infile.get(character);
 	
 	if (character == 92) { // 92 in ascii is "\", to check if the year is available
-		runtimeMintes = -1;
+		runtimeMinutes = -1;
 		infile.ignore(); // to ignore the character "N"
 	}
 	else {
 		infile.unget(); // to go back to the starting position of year
-		infile >> runtimeMintes;
+		infile >> runtimeMinutes;
 	}
 }
 
@@ -67,8 +71,14 @@ void Record::setGenres(istream & infile)
 {
 	string str;
 	infile >> str;
-	if (str[0] != 34) {
+	if (str[0] != '\"' && str[0] != '\\') {
 		genres[0] = str;
+		infile.ignore(); // to ignore "\n" AKA line feed, return key, enter.
+		return;
+	}
+	else if (str[0] == '\\') {
+		infile.ignore(); // to ignore "\n" AKA line feed, return key, enter.
+		return;
 	}
 	else {
 		int num = 0;
@@ -81,24 +91,27 @@ void Record::setGenres(istream & infile)
 				genres[num] += *it;
 			}
 		}
+		infile.ignore(); // to ignore "\n" AKA line feed, return key, enter.
+		return;
 	}
-	infile.ignore(); // to ignore "\n"
 }
 
-void Record::setRecord(istream& infile)
+void Record::setRecord(istream & infile)
 {
 	setTconst(infile);
 	setTitleType(infile);
 	setPrimaryTitle(infile);
 	setStartYear(infile);
-	setRunTimeMintes(infile);
+	setruntimeMinutes(infile);
 	setGenres(infile);
 }
+
+
 
 void Record::printRecord()
 {
 	cout << tconst << "\t" << titleType << "\t" << primaryTitle 
-		<< "\t" << startYear << "\t" << runtimeMintes << "\t";
+		<< "\t" << startYear << "\t" << runtimeMinutes << "\t";
 
 	if (genres[1]._Equal("")) {
 		cout << genres[0] << endl;

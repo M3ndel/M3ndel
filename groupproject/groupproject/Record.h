@@ -9,11 +9,10 @@ class Record {
 public:
 	
 	long tconst;
-	string titleType; //enum titlekind {short, movie, tvMovie, tvShort, tvMiniSeries};
+	string titleType; //short, movie, tvMovie, tvShort, tvMiniSeries
 	string primaryTitle = "";
 	int startYear = -1;
-	int runtimeMintes = -1;
-	
+	int runtimeMinutes = -1;
 	/*
 	Documentary, Short, Animation, Comedy, Romance, Sport, News, Drama, Fantasy, Horror,
 	Biography, Music, War, Crime, Western, Family, Adventure, History, Sci-Fi,
@@ -21,19 +20,29 @@ public:
 	*/
 	string* genres = new string[3];
 
+	int depth;
+	Record* next;
+	Record* parent;
+	Record* left;
+	Record* rigth;
+
 public:
 	Record();
 	~Record();
+	void setRecord(istream&);
+	void printRecord();
+	
+private:
+	// original building block of setRecord(istream&)
+
 	void setTconst(istream&);
 	void setTitleType(istream&);
 	void setPrimaryTitle(istream&);
 	void setStartYear(istream&);
-	void setRunTimeMintes(istream&);
+	void setruntimeMinutes(istream&);
 	void setGenres(istream&);
 
-	void setRecord(istream&);
-
-	void printRecord();
+	
 };
 
 #endif // !RECORD_H
