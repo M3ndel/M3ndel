@@ -8,6 +8,7 @@ using namespace std;
 class LinkList
 {
 public:
+
 	Record* head;
 	Record* tile;
 
@@ -16,6 +17,8 @@ public:
 	~LinkList();
 
 	void push_back(ifstream&);
+	Record* bottom_Left(Record* node);
+	void swapNodePosition(Record* a, Record* b);
 };
 
 #endif

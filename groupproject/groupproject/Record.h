@@ -40,10 +40,6 @@ private:
 	void setStartYear(istream&);
 	void setRunTimeMinutes(istream&);
 	void setGenres(istream&);
-
-	void setRecord(istream&);
-
-	void printRecord();
 };
 
 #endif // !RECORD_H

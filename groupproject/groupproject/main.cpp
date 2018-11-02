@@ -10,7 +10,6 @@ using namespace std;
 
 int main() {
 	ifstream infile(chooseDataset());
-	
 	if (infile.good())
 		cout << "file successfully opened" << endl;
 	else
