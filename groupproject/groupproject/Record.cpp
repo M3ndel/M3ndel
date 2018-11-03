@@ -2,6 +2,7 @@
 
 Record::Record()
 {
+	tconst = -1;
 	primaryTitle = "";
 	startYear = -1;
 	runtimeMinutes = -1;
@@ -9,6 +10,9 @@ Record::Record()
 	genres[1] = "";
 	genres[2] = "";
 	next = NULL;
+	parent = NULL;
+	left = NULL;
+	right = NULL;
 	depth = 0;
 }
 
@@ -109,7 +113,21 @@ void Record::setRecord(istream & infile)
 	setGenres(infile);
 }
 
-
+void Record::replace(Record * r)
+{
+	tconst = r->tconst;
+	titleType = r->titleType;
+	primaryTitle = r->primaryTitle;
+	startYear = r->startYear;
+	runtimeMinutes = r->runtimeMinutes;
+	genres = r->genres;
+	depth = r->depth;
+	next = r->next;
+	parent = r->parent;
+	left = r->left;
+	right = r->right;
+	
+}
 
 void Record::printRecord()
 {

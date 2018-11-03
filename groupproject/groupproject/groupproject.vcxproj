@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="binary.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Record.cpp" />
     <ClCompile Include="linkList.cpp" />
@@ -128,6 +129,7 @@
     <Text Include="test.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="binary.h" />
     <ClInclude Include="LinkList.h" />
     <ClInclude Include="Record.h" />
     <ClInclude Include="UserPanel.h" />

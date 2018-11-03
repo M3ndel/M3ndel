@@ -10,9 +10,9 @@ public:
 	
 	long tconst;
 	string titleType; //short, movie, tvMovie, tvShort, tvMiniSeries
-	string primaryTitle = "";
-	int startYear = -1;
-	int runtimeMinutes = -1;
+	string primaryTitle;
+	int startYear;
+	int runtimeMinutes;
 	/*
 	Documentary, Short, Animation, Comedy, Romance, Sport, News, Drama, Fantasy, Horror,
 	Biography, Music, War, Crime, Western, Family, Adventure, History, Sci-Fi,
@@ -24,12 +24,14 @@ public:
 	Record* next;
 	Record* parent;
 	Record* left;
-	Record* rigth;
+	Record* right;
+	
 
 public:
 	Record();
 	~Record();
 	void setRecord(istream&);
+	void replace(Record*);
 	void printRecord();
 	
 private:

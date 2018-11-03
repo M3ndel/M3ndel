@@ -24,6 +24,9 @@
     <ClCompile Include="linkList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="binary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="DataSet_Required\DataSet1_1000.txt">
@@ -53,6 +56,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="UserPanel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="binary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

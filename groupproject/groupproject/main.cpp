@@ -18,10 +18,14 @@ int main() {
 	LinkList list;
 	clock_t start = clock();
 	while (!infile.eof()) {
-		list.push_back(infile);
+		list.insert2heap(infile);
 	}
-
 	cout << (clock() - start) / (double)CLOCKS_PER_SEC << endl;
+
+	start = clock();
+	Record* r = list.search_tconst(50868);
+	cout << (clock() - start) / (double)CLOCKS_PER_SEC << endl;
+	r->printRecord();
 
 	system("pause");
 	return 0;
