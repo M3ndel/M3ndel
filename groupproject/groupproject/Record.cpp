@@ -19,6 +19,10 @@ Record::Record()
 Record::~Record()
 {
 	delete[] genres;
+	delete next;
+	delete parent;
+	delete left;
+	delete right;
 }
 
 // original building block of setRecord(istream&)
@@ -111,22 +115,6 @@ void Record::setRecord(istream & infile)
 	setStartYear(infile);
 	setRunTimeMinutes(infile);
 	setGenres(infile);
-}
-
-void Record::replace(Record * r)
-{
-	tconst = r->tconst;
-	titleType = r->titleType;
-	primaryTitle = r->primaryTitle;
-	startYear = r->startYear;
-	runtimeMinutes = r->runtimeMinutes;
-	genres = r->genres;
-	depth = r->depth;
-	next = r->next;
-	parent = r->parent;
-	left = r->left;
-	right = r->right;
-	
 }
 
 void Record::printRecord()

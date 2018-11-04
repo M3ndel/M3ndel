@@ -31,7 +31,6 @@ public:
 	Record();
 	~Record();
 	void setRecord(istream&);
-	void replace(Record*);
 	void printRecord();
 	
 private:

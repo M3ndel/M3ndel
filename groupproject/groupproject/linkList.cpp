@@ -19,24 +19,26 @@ void LinkList::insert2heap(ifstream & infile)
 	Record* record = new Record();
 	record->setRecord(infile);
 
-	StackArr path(record->tconst);
-
 	if (head == NULL) {
 		head = record;
 	}
 	else {
-		int step = log(record->tconst) / log(2);
 		Record* currNode = head;
 		bool dir;
-		for (dir = path.pop(); --step <= 1 && !path.isEmpty(); dir = path.pop()) {
+		StackArr path(record->tconst);
+		int numstepremaind = log(record->tconst) / log(2);
+		while (--numstepremaind > 0) { // loop throught the tree until it is one step away from the destination 
+			dir = path.pop(); // false mean left, true mean right
 			if (dir) {
-				if (currNode->right) {
+				if (currNode->right) { // check is there a node when go deeper
 					currNode = currNode->right;
 				}
-				else
-				{
-					Record* newNode = new Record();
-					currNode->right = newNode;
+				else {
+					cout << "insert fill up node " << currNode->tconst << endl;
+					system("pause");
+					Record* newNode = new Record(); // create a new node to
+					currNode->right = newNode; // fill up the empty region of the tree
+					newNode->parent = currNode;
 					currNode = currNode->right;
 				}
 			}
@@ -45,26 +47,41 @@ void LinkList::insert2heap(ifstream & infile)
 					currNode = currNode->left;
 				}
 				else {
+					cout << "insert fill up node" << currNode->tconst << endl;
+					system("pause");
 					Record* newNode = new Record();
 					currNode->left = newNode;
-					currNode = currNode->left;
+					newNode->parent = currNode;
+					currNode = currNode->right;
 				}
 			}
 		}
+		dir = path.pop();
 		if (dir) {
-			if (currNode->right) {
-				currNode = currNode->right;
-				currNode->replace(record);
+			if (currNode->right) { 
+				Record* rptr = currNode->right;
+				
+				record->parent = rptr->parent;
+				record->left = rptr->left;
+				record->right = rptr->right;
+				
+				currNode->right = record;
+				delete rptr;
 			}
-			else
-			{
+			else {
 				currNode->right = record;
 			}
 		}
 		else {
 			if (currNode->left) {
-				currNode = currNode->left;
-				currNode->replace(record);
+				Record* lptr = currNode->left;
+				
+				record->parent = lptr->parent;
+				record->left = lptr->left;
+				record->right = lptr->right;
+				
+				currNode->left = record;
+				delete lptr;
 			}
 			else {
 				currNode->left = record;
@@ -92,13 +109,13 @@ Record * LinkList::search_tconst(long num)
 {
 	StackArr sa(num);
 	Record* currNode = head;
-	for (bool dir = sa.pop(); !sa.isEmpty(); dir = sa.pop()) {
-		if (dir) {
+	bool dir;
+	while (!sa.isEmpty()) {
+		dir = sa.pop();
+		if (dir)
 			currNode = currNode->right;
-		}
-		else {
+		else
 			currNode = currNode->left;
-		}
 	}
 	if (currNode->tconst == -1) {
 		cout << "Cannot Found this record." << endl;
