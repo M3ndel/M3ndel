@@ -34,8 +34,8 @@ void LinkList::insert2heap(ifstream & infile)
 					currNode = currNode->right;
 				}
 				else {
-					cout << "insert fill up node " << currNode->tconst << endl;
-					system("pause");
+					// cout << "insert fill up node " << currNode->tconst << endl;
+					// system("pause");
 					Record* newNode = new Record(); // create a new node to
 					currNode->right = newNode; // fill up the empty region of the tree
 					newNode->parent = currNode;
@@ -47,12 +47,12 @@ void LinkList::insert2heap(ifstream & infile)
 					currNode = currNode->left;
 				}
 				else {
-					cout << "insert fill up node" << currNode->tconst << endl;
-					system("pause");
+					// cout << "insert fill up node" << currNode->tconst << endl;
+					// system("pause");
 					Record* newNode = new Record();
 					currNode->left = newNode;
 					newNode->parent = currNode;
-					currNode = currNode->right;
+					currNode = currNode->left;
 				}
 			}
 		}

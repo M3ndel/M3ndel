@@ -19,19 +19,19 @@ int main() {
 	LinkList list;
 	int num = 1;
 	clock_t start = clock();
-	/*
+	
 	while (!infile.eof()) {
+		list.insert2heap(infile);
+	}
+
+	/*
+	for (int i = 0; i < 41; i++) {
 		list.insert2heap(infile);
 		cout << num++;
 		cout << "inserted" << endl;
 	}
 	*/
 	
-	for (int i = 0; i < 41; i++) {
-		list.insert2heap(infile);
-		cout << num++;
-		cout << "inserted" << endl;
-	}
 
 	cout << (clock() - start) / (double)CLOCKS_PER_SEC << endl;
 
