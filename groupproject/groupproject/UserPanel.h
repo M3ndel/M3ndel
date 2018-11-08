@@ -83,6 +83,7 @@ string searchTitleType() {
 	string tt;
 	cout << "Type in the title type: ";
 	cin >> tt;
+	transform(tt.begin(), tt.end(), tt.begin(), ::tolower);
 	return tt;
 }
 
@@ -91,7 +92,6 @@ string searchGenre() {
 	cout << "Type in the genre: ";
 	cin >> g;
 	transform(g.begin(), g.end(), g.begin(), ::tolower);
-	g[0] -= 32;
 	return g;
 }
 #endif // !USERPANEL_H
