@@ -19,10 +19,14 @@ void LinkList::insert2heap(ifstream & infile)
 	Record* record = new Record();
 	record->setRecord(infile);
 
-	if (head == NULL) {
+	if (head == NULL || head->tconst == -1) {
 		head = record;
+		tile = record;
 	}
 	else {
+		tile->next = record;
+		tile = record;
+
 		Record* currNode = head;
 		bool dir;
 		StackArr path(record->tconst);
@@ -70,6 +74,7 @@ void LinkList::insert2heap(ifstream & infile)
 			}
 			else {
 				currNode->right = record;
+				record->parent = currNode;
 			}
 		}
 		else {
@@ -85,6 +90,7 @@ void LinkList::insert2heap(ifstream & infile)
 			}
 			else {
 				currNode->left = record;
+				record->parent = currNode;
 			}
 		}
 	}

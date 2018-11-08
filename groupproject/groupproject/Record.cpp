@@ -119,9 +119,8 @@ void Record::setRecord(istream & infile)
 
 void Record::printRecord()
 {
-	cout << tconst << "\t" << titleType << "\t" << primaryTitle 
+	cout << tconst << "\t" << titleType << "\t" << primaryTitle
 		<< "\t" << startYear << "\t" << runtimeMinutes << "\t";
-
 	if (genres[1]._Equal("")) {
 		cout << genres[0] << endl;
 	}
