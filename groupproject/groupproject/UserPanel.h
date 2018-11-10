@@ -94,4 +94,106 @@ string searchGenre() {
 	transform(g.begin(), g.end(), g.begin(), ::tolower);
 	return g;
 }
+
+int DeleteOption() {
+	int chooser;
+	//tconst, titleType, primaryTitle, startYear, genres, runtimeMinutes
+	cout << "\nDelete by" << endl
+		<< "1. tconst" << endl
+		<< "2. title type" << endl
+		<< "3. primaryTitle" << endl
+		<< "4. startYear" << endl
+		<< "5. genres" << endl
+		<< "6. runtimeMinutes" << endl
+		<< "Choose: ";
+	cin >> chooser;
+	return chooser;
+}
+
+
+int searchANDdelTconst() {
+	int id;
+	cout << "Type in the tconst: ";
+	cin >> id;
+	return id;
+}
+
+string searchANDdelTitleType() {
+	string tt;
+	cout << "Type in the title type: ";
+	cin.ignore();
+	getline(cin, tt);
+	//cin >> tt;
+	//transform(tt.begin(), tt.end(), tt.begin(), ::tolower);
+	return tt;
+}
+
+string searchANDdelPrimaryTitle() {
+	string pt;
+	cout << "Type in the primary type: ";
+	cin.ignore();
+	getline(cin, pt);
+	return pt;
+}
+
+int searchANDdelStartYear() {
+	int Year;
+	cout << "Type in the start Year: ";
+	cin >> Year;
+	return Year;
+}
+
+string searchANDdelGenre() {
+	string g;
+	cout << "Type in the genre: ";
+	cin.ignore();
+	getline(cin, g);
+	//cin >> g;
+	//transform(g.begin(), g.end(), g.begin(), ::tolower);
+	return g;
+}
+
+int searchANDdelRunTime() {
+	int time;
+	cout << "Type in the run time minutes: ";
+	cin >> time;
+	return time;
+}
+
+int searchANDdelrange(int enter) {
+	string ans;
+	int chooser;
+	if (enter == 2)
+	{
+		cout << "Do you want to search by range? (yes/no)\n";
+		cin >> ans;
+		if (ans == "yes")
+		{
+			cout << "\nSearch by" << endl
+				<< "1. tconst" << endl
+				<< "2. startYear" << endl
+				<< "3. runtimeMinutes" << endl
+				<< "Choose: ";
+			cin >> chooser;
+			return chooser;
+		}
+	}
+	else if (enter == 4)
+	{
+		cout << "Do you want to search by range? (yes/no)\n";
+		cin >> ans;
+		if (ans == "yes")
+		{
+			cout << "\nDelete by" << endl
+				<< "1. tconst" << endl
+				<< "2. startYear" << endl
+				<< "3. runtimeMinutes" << endl
+				<< "Choose: ";
+			cin >> chooser;
+			return chooser;
+		}
+	}
+	else
+		return -1;
+}
 #endif // !USERPANEL_H

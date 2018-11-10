@@ -1,5 +1,6 @@
 #include "LinkList.h"
 #include "binary.h"
+#include <stack>
 using namespace std;
 
 LinkList::LinkList()
@@ -108,6 +109,264 @@ void LinkList::push_back(ifstream & infile)
 	else {
 		tile->next = record;
 		tile = record;
+	}
+}
+
+void LinkList::reset(Record * Node)
+{
+	Record* temp = Node;
+	Node->printRecord();
+	temp->tconst = -1;
+	temp->primaryTitle = "";
+	temp->titleType = "";
+	temp->startYear = -1;
+	temp->runtimeMinutes = -1;
+	temp->genres[0] = "";
+	temp->genres[1] = "";
+	temp->genres[2] = "";
+}
+
+void LinkList::searchANDdelsomeYearMinute(int first, int last, int c, int n)
+{
+	stack<Record*> tree;		//it is stack
+	tree.push(head);
+	int i = 0;
+	while (tree.size() > 0)
+	{
+		Record* temp = tree.top();
+		if (c == 1) {
+			if (temp->tconst >= first && temp->tconst <= last && n == 1) {
+				cout << "Searched:\t";
+				temp->printRecord();
+				i++;
+			}
+			else if (temp->startYear >= first && temp->startYear <= last && n == 2) {
+				cout << "Searched:\t";
+				temp->printRecord();
+				i++;
+			}
+			else if (temp->runtimeMinutes >= first && temp->runtimeMinutes <= last && n == 3) {
+				cout << "Searched:\t";
+				temp->printRecord();
+				i++;
+			}
+		}
+		else if (c == 2)
+		{
+			if (temp->tconst >= first && temp->tconst <= last && n == 1) {
+				cout << "Deleted:\t";
+				reset(temp);
+				i++;
+			}
+			else if (temp->startYear >= first && temp->startYear <= last && n == 2) {
+				cout << "Deleted:\t";
+				reset(temp);
+				i++;
+			}
+			else if (temp->runtimeMinutes >= first && temp->runtimeMinutes <= last && n == 3) {
+				cout << "Deleted:\t";
+				reset(temp);
+				i++;
+			}
+		}
+		tree.pop();
+		if (temp->right != NULL)
+			tree.push(temp->right);
+		if (temp->left != NULL)
+			tree.push(temp->left);
+	}
+	if (i == 0) 
+		cout << "NO record." << endl;
+	else 
+		cout << "There have " << i << " record." << endl;
+}
+
+void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
+{
+	stack<Record*> tree;		//it is stack
+	tree.push(head);
+	int n;
+	int i = 0;
+	if (type == "tconst") n = 1;
+	else if (type == "titleType") n = 2;
+	else if (type == "primaryTitle") n = 3;
+	else if (type == "startYear") n = 4;
+	else if (type == "genres") n = 5;
+	else if (type == "runtime") n = 6;
+
+	switch (n)		//n--> 1:tconst 2:titleType 3:0 4:startYear 5:genres 6:runtimeMinutes
+	{
+	case 1:		//tconst
+		i = 0;
+		while (tree.size() > 0)
+		{
+			Record* temp = tree.top();
+			if (temp->tconst == intdata) {
+				if (c == 1) {
+					cout << "Searched:\t";
+					temp->printRecord();
+					i++;
+					break;
+				}
+				else if (c == 2)
+				{
+					cout << "Deleted:\t";
+					reset(temp);
+					break;
+				}
+			}
+			else
+			{
+				tree.pop();
+				if (temp->right != NULL)
+					tree.push(temp->right);
+				if (temp->left != NULL)
+					tree.push(temp->left);
+			}
+		}
+		if (i == 0) cout << "NO record." << endl;
+		else cout << "There have " << i << " record." << endl;
+		break;
+	case 2:		//titleType
+		i = 0;
+		while (tree.size() > 0)
+		{
+			Record* temp = tree.top();
+			if (temp->titleType == stringdata) {
+				if (c == 1) {
+					cout << "Searched:\t";
+					temp->printRecord();
+					i++;
+				}
+				else if (c == 2)
+				{
+					cout << "Deleted:\t";
+					reset(temp);
+					i++;
+				}
+			}
+			tree.pop();
+			if (temp->right != NULL)
+				tree.push(temp->right);
+			if (temp->left != NULL)
+				tree.push(temp->left);
+		}
+		if (i == 0) cout << "NO record." << endl;
+		else cout << "There have " << i << " record." << endl;
+		break;
+	case 3:		//primaryTitle
+		i = 0;
+		while (tree.size() > 0)
+		{
+			Record* temp = tree.top();
+			if (temp->primaryTitle == stringdata) {
+				if (c == 1) {
+					cout << "Searched:\t";
+					temp->printRecord();
+					i++;
+					break;
+				}
+				else if (c == 2)
+				{
+					cout << "Deleted:\t";
+					reset(temp);
+					i++;
+					break;
+				}
+			}
+			else
+			{
+				tree.pop();
+				if (temp->right != NULL)
+					tree.push(temp->right);
+				if (temp->left != NULL)
+					tree.push(temp->left);
+			}
+		}
+		if (i == 0) cout << "NO record." << endl;
+		else cout << "There have " << i << " record." << endl;
+		break;
+	case 4:		//startYear
+		i = 0;
+		while (tree.size() > 0)
+		{
+			Record* temp = tree.top();
+			if (temp->startYear == intdata) {
+				if (c == 1) {
+					cout << "Searched:\t";
+					temp->printRecord();
+					i++;
+				}
+				else if (c == 2)
+				{
+					cout << "Deleted:\t";
+					reset(temp);
+					i++;
+				}
+			}
+			tree.pop();
+			if (temp->right != NULL)
+				tree.push(temp->right);
+			if (temp->left != NULL)
+				tree.push(temp->left);
+		}
+		if (i == 0) cout << "NO record." << endl;
+		else cout << "There have " << i << " record." << endl;
+		break;
+	case 5:		//genres
+		i = 0;
+		while (tree.size() > 0)
+		{
+			Record* temp = tree.top();
+			if (temp->genres[0] == stringdata || temp->genres[1] == stringdata || temp->genres[2] == stringdata) {
+				if (c == 1) {
+					cout << "Searched:\t";
+					temp->printRecord();
+					i++;
+				}
+				else if (c == 2)
+				{
+					cout << "Deleted:\t";
+					reset(temp);
+					i++;
+				}
+			}
+			tree.pop();
+			if (temp->right != NULL)
+				tree.push(temp->right);
+			if (temp->left != NULL)
+				tree.push(temp->left);
+		}
+		if (i == 0) cout << "NO record." << endl;
+		else cout << "There have " << i << " record." << endl;
+		break;
+	case 6:		//runtimeMinutes
+		i = 0;
+		while (tree.size() > 0)
+		{
+			Record* temp = tree.top();
+			if (temp->runtimeMinutes == intdata) {
+				if (c == 1) {
+					cout << "Searched:\t";
+					temp->printRecord();
+					i++;
+				}
+				else if (c == 2)
+				{
+					cout << "Deleted:\t";
+					reset(temp);
+					i++;
+				}
+			}
+			tree.pop();
+			if (temp->right != NULL)
+				tree.push(temp->right);
+			if (temp->left != NULL)
+				tree.push(temp->left);
+		}
+		if (i == 0) cout << "NO record." << endl;
+		else cout << "There have " << i << " record." << endl;
+		break;
 	}
 }
 
