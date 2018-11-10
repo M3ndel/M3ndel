@@ -110,7 +110,6 @@ int DeleteOption() {
 	return chooser;
 }
 
-
 int searchANDdelTconst() {
 	int id;
 	cout << "Type in the tconst: ";
@@ -195,5 +194,18 @@ int searchANDdelrange(int enter) {
 	}
 	else
 		return -1;
+}
+
+int modifyBy() {
+	int chooser;
+	cout << "Choose a attribute:" << endl
+		<< "1. ID" << endl
+		<< "2. Title Type" << endl
+		<< "3. Primary Title" << endl
+		<< "4. Start Year" << endl
+		<< "5. Run time" << endl
+		<< "5. Genres" << endl;
+	cin >> chooser;
+	return chooser;
 }
 #endif // !USERPANEL_H
