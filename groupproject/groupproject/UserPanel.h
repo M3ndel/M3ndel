@@ -51,7 +51,10 @@ int chooseOperation() {
 
 	int chooser;
 	cin >> chooser;
-	return chooser;
+	if (chooser < 1 || chooser > 4)
+		return chooseOperation();
+	else
+		return chooser;
 }
 
 string importFrom() {
