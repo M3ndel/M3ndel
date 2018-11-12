@@ -176,9 +176,9 @@ void LinkList::searchANDdelsomeYearMinute(int first, int last, int c, int n)
 			tree.push(temp->left);
 	}
 	if (i == 0) 
-		cout << "NO record." << endl;
+		cout << "NO record." << endl << endl;
 	else 
-		cout << "There have " << i << " record." << endl;
+		cout << "There have " << i << " record." << endl << endl;
 }
 
 void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
@@ -224,8 +224,8 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 					tree.push(temp->left);
 			}
 		}
-		if (i == 0) cout << "NO record." << endl;
-		else cout << "There have " << i << " record." << endl;
+		if (i == 0) cout << "NO record." << endl << endl;
+		else cout << "There have " << i << " record." << endl << endl;
 		break;
 	case 2:		//titleType
 		i = 0;
@@ -251,8 +251,8 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 			if (temp->left != NULL)
 				tree.push(temp->left);
 		}
-		if (i == 0) cout << "NO record." << endl;
-		else cout << "There have " << i << " record." << endl;
+		if (i == 0) cout << "NO record." << endl << endl;
+		else cout << "There have " << i << " record." << endl << endl;
 		break;
 	case 3:		//primaryTitle
 		i = 0;
@@ -283,8 +283,8 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 					tree.push(temp->left);
 			}
 		}
-		if (i == 0) cout << "NO record." << endl;
-		else cout << "There have " << i << " record." << endl;
+		if (i == 0) cout << "NO record." << endl << endl;
+		else cout << "There have " << i << " record." << endl << endl;
 		break;
 	case 4:		//startYear
 		i = 0;
@@ -310,8 +310,8 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 			if (temp->left != NULL)
 				tree.push(temp->left);
 		}
-		if (i == 0) cout << "NO record." << endl;
-		else cout << "There have " << i << " record." << endl;
+		if (i == 0) cout << "NO record." << endl << endl;
+		else cout << "There have " << i << " record." << endl << endl;
 		break;
 	case 5:		//genres
 		i = 0;
@@ -337,8 +337,8 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 			if (temp->left != NULL)
 				tree.push(temp->left);
 		}
-		if (i == 0) cout << "NO record." << endl;
-		else cout << "There have " << i << " record." << endl;
+		if (i == 0) cout << "NO record." << endl << endl;
+		else cout << "There have " << i << " record." << endl << endl;
 		break;
 	case 6:		//runtimeMinutes
 		i = 0;
@@ -364,8 +364,8 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 			if (temp->left != NULL)
 				tree.push(temp->left);
 		}
-		if (i == 0) cout << "NO record." << endl;
-		else cout << "There have " << i << " record." << endl;
+		if (i == 0) cout << "NO record." << endl << endl;
+		else cout << "There have " << i << " record." << endl << endl;
 		break;
 	}
 }

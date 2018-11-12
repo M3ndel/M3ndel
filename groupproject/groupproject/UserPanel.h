@@ -67,10 +67,14 @@ string importFrom() {
 int searchOption() {
 	int chooser;
 
-	cout << "Search by" << endl
+	cout << "\nSearch by" << endl
 		<< "1. tconst" << endl
 		<< "2. title type" << endl
-		<< "3. title type and genres" << endl;
+		<< "3. primaryTitle" << endl
+		<< "4. startYear" << endl
+		<< "5. genres" << endl
+		<< "6. runtimeMinutes" << endl
+		<< "Choose: ";
 	cin >> chooser;
 	return chooser;
 }
@@ -195,18 +199,17 @@ int searchANDdelrange(int enter) {
 			return chooser;
 		}
 	}
-	else
+	if (ans == "no")
 		return -1;
 }
 
 int modifyBy() {
 	int chooser;
 	cout << "Choose a attribute:" << endl
-		<< "1. ID" << endl
-		<< "2. Title Type" << endl
-		<< "3. Primary Title" << endl
-		<< "4. Start Year" << endl
-		<< "5. Run time" << endl
+		<< "1. Title Type" << endl
+		<< "2. Primary Title" << endl
+		<< "3. Start Year" << endl
+		<< "4. Run time" << endl
 		<< "5. Genres" << endl;
 	cin >> chooser;
 	return chooser;
