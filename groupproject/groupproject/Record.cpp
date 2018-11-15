@@ -9,18 +9,17 @@ Record::Record()
 	genres[0] = "";
 	genres[1] = "";
 	genres[2] = "";
+
 	next = NULL;
-	parent = NULL;
 	left = NULL;
 	right = NULL;
-	depth = 0;
+	nextSameTitle = NULL;
 }
 
 Record::~Record()
 {
 	delete[] genres;
 	delete next;
-	delete parent;
 	delete left;
 	delete right;
 }

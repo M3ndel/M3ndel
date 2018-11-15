@@ -20,12 +20,10 @@ public:
 	*/
 	string* genres = new string[3];
 
-	int depth;
 	Record* next;
-	Record* parent;
 	Record* left;
 	Record* right;
-	
+	Record* nextSameTitle;
 
 public:
 	Record();
