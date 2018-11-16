@@ -9,9 +9,9 @@
 using namespace std;
 
 int main() {
-	cout << "--------------------------------------------------------------------------------------------------" << endl;
-	cout << "---------------------------------------WELCOME TO OUR WORLD---------------------------------------" << endl;
-	cout << "--------------------------------------------------------------------------------------------------" << endl;
+	cout << "----------------------------------------------------------------------------------" << endl;
+	cout << "-------------------------------WELCOME TO OUR WORLD-------------------------------" << endl;
+	cout << "----------------------------------------------------------------------------------" << endl;
 
 	int enter = 0;
 	int chooser = 0;
@@ -107,47 +107,58 @@ int main() {
 					list.searchANDdel("runtime", intdata, stringdata, c);
 					break;
 				}
+				system("pause");
+				system("cls");
 		}
 			break;
 			// modify the record with a corrsponding ID
 		case 3: {
 			Record* r = list.search_tconst(searchTconst());
-			switch (modifyBy())
-			{
-			case 1: {
-				cout << "change the title type into: ";
-				cin >> r->titleType;
+			if (r) {
+				switch (modifyBy())
+				{
+				case 1: {
+					cout << "change the title type into: ";
+					cin >> r->titleType;
+				}
+						break;
+				case 2: {
+					cout << "change the primary title into: ";
+					cin >> r->primaryTitle;
+				}
+						break;
+				case 3: {
+					cout << "change the start year into: ";
+					cin >> r->startYear;
+				}
+						break;
+				case 4: {
+					cout << "change the Run time into: ";
+					cin >> r->runtimeMinutes;
+				}
+						break;
+				case 5: {
+					int c;
+					cout << "choose a genre to change(1-3): ";
+					cin >> c;
+					cout << "change the genre into: ";
+					cin >> r->genres[c - 1];
+				}
+						break;
+				}
 			}
-					break;
-			case 2: {
-				cout << "change the primary title into: ";
-				cin >> r->primaryTitle;
+			else
+				cout << "NO record" << endl;
+			
+			system("pause");
+			system("cls");
 			}
-					break;
-			case 3: {
-				cout << "change the start year into: ";
-				cin >> r->startYear;
-			}
-					break;
-			case 4: {
-				cout << "change the Run time into: ";
-				cin >> r->runtimeMinutes;
-			}
-					break;
-			case 5: {
-				int c;
-				cout << "choose a genre to change(1-3): ";
-				cin >> c;
-				cout << "change the genre into: ";
-				cin >> r->genres[c - 1];
-			}
-					break;
-			default:		//Leave
+				break;
+		default:		//Leave
 				enter = -1;
 				break;
-			}
-			}
 		}
+		
 		} while (enter != -1);
 
 		system("pause");

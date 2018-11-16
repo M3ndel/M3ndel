@@ -1,12 +1,20 @@
 #include "LinkList.h"
 #include "binary.h"
-#include <stack>
+#include <ctime>
 using namespace std;
 
 LinkList::LinkList()
 {
-	head = NULL;
+	Record* emptyNode = new Record();
+	head = emptyNode;
 	tile = NULL;
+	firstAppearTitle[0] = NULL;
+	firstAppearTitle[1] = NULL;
+	firstAppearTitle[2] = NULL;
+	firstAppearTitle[3] = NULL;
+	firstAppearTitle[4] = NULL;
+	firstAppearTitle[5] = NULL;
+	firstAppearTitle[6] = NULL;
 }
 
 
@@ -20,13 +28,27 @@ void LinkList::insert2heap(ifstream & infile)
 	Record* record = new Record();
 	record->setRecord(infile);
 
-	if (head == NULL || head->tconst == -1) {
+	if (record->tconst == 1) {
 		head = record;
 		tile = record;
 	}
 	else {
 		tile->next = record;
 		tile = record;
+
+		//short, movie, tvMovie, tvShort, tvMiniSeries
+		int i = titleType2Int(record->titleType);
+		if (firstAppearTitle[i] == NULL) { //initialize head of each title type 
+			firstAppearTitle[i] = record;
+			lastAppearTitle[i] = record;
+		}
+		else {
+			Record* r = lastAppearTitle[i];
+			r->nextSameTitle = record;
+			lastAppearTitle[i] = record;
+			record->nextSameTitle = NULL;
+		}
+		
 
 		Record* currNode = head;
 		bool dir;
@@ -43,7 +65,6 @@ void LinkList::insert2heap(ifstream & infile)
 					// system("pause");
 					Record* newNode = new Record(); // create a new node to
 					currNode->right = newNode; // fill up the empty region of the tree
-					newNode->parent = currNode;
 					currNode = currNode->right;
 				}
 			}
@@ -56,17 +77,18 @@ void LinkList::insert2heap(ifstream & infile)
 					// system("pause");
 					Record* newNode = new Record();
 					currNode->left = newNode;
-					newNode->parent = currNode;
 					currNode = currNode->left;
 				}
 			}
+		}
+		if (path.isEmpty()) {
+			head = record;
 		}
 		dir = path.pop();
 		if (dir) {
 			if (currNode->right) { 
 				Record* rptr = currNode->right;
 				
-				record->parent = rptr->parent;
 				record->left = rptr->left;
 				record->right = rptr->right;
 				
@@ -75,14 +97,12 @@ void LinkList::insert2heap(ifstream & infile)
 			}
 			else {
 				currNode->right = record;
-				record->parent = currNode;
 			}
 		}
 		else {
 			if (currNode->left) {
 				Record* lptr = currNode->left;
 				
-				record->parent = lptr->parent;
 				record->left = lptr->left;
 				record->right = lptr->right;
 				
@@ -91,7 +111,6 @@ void LinkList::insert2heap(ifstream & infile)
 			}
 			else {
 				currNode->left = record;
-				record->parent = currNode;
 			}
 		}
 	}
@@ -115,7 +134,7 @@ void LinkList::push_back(ifstream & infile)
 void LinkList::reset(Record * Node)
 {
 	Record* temp = Node;
-	Node->printRecord();
+	//Node->printRecord();
 	temp->tconst = -1;
 	temp->primaryTitle = "";
 	temp->titleType = "";
@@ -126,65 +145,74 @@ void LinkList::reset(Record * Node)
 	temp->genres[2] = "";
 }
 
-void LinkList::searchANDdelsomeYearMinute(int first, int last, int c, int n)
+/*
+ c = 1, search; c = 2, delete
+ n repersent attribute tconst = 1, startYear = 2, runtimeMinutes = 3
+*/
+void LinkList::searchANDdelsomeYearMinute(int first, int last, int c, int n) 
 {
-	stack<Record*> tree;		//it is stack
-	tree.push(head);
+	clock_t start = clock();
+
+	Record* currNode = head;
 	int i = 0;
-	while (tree.size() > 0)
+	while (currNode)
 	{
-		Record* temp = tree.top();
 		if (c == 1) {
-			if (temp->tconst >= first && temp->tconst <= last && n == 1) {
+			if (currNode->tconst >= first && currNode->tconst <= last && n == 1) {
 				cout << "Searched:\t";
-				temp->printRecord();
+				currNode->printRecord();
 				i++;
 			}
-			else if (temp->startYear >= first && temp->startYear <= last && n == 2) {
+			else if (currNode->startYear >= first && currNode->startYear <= last && n == 2) {
 				cout << "Searched:\t";
-				temp->printRecord();
+				currNode->printRecord();
 				i++;
 			}
-			else if (temp->runtimeMinutes >= first && temp->runtimeMinutes <= last && n == 3) {
+			else if (currNode->runtimeMinutes >= first && currNode->runtimeMinutes <= last && n == 3) {
 				cout << "Searched:\t";
-				temp->printRecord();
+				currNode->printRecord();
 				i++;
 			}
 		}
 		else if (c == 2)
 		{
-			if (temp->tconst >= first && temp->tconst <= last && n == 1) {
-				cout << "Deleted:\t";
-				reset(temp);
+			if (currNode->tconst >= first && currNode->tconst <= last && n == 1) {
+				//cout << "Deleted:\t";
+				reset(currNode);
 				i++;
 			}
-			else if (temp->startYear >= first && temp->startYear <= last && n == 2) {
-				cout << "Deleted:\t";
-				reset(temp);
+			else if (currNode->startYear >= first && currNode->startYear <= last && n == 2) {
+				//cout << "Deleted:\t";
+				reset(currNode);
 				i++;
 			}
-			else if (temp->runtimeMinutes >= first && temp->runtimeMinutes <= last && n == 3) {
-				cout << "Deleted:\t";
-				reset(temp);
+			else if (currNode->runtimeMinutes >= first && currNode->runtimeMinutes <= last && n == 3) {
+				//cout << "Deleted:\t";
+				reset(currNode);
 				i++;
 			}
 		}
-		tree.pop();
-		if (temp->right != NULL)
-			tree.push(temp->right);
-		if (temp->left != NULL)
-			tree.push(temp->left);
+		currNode = currNode->next;
 	}
 	if (i == 0) 
 		cout << "NO record." << endl << endl;
 	else 
 		cout << "There have " << i << " record." << endl << endl;
+
+	cout << "It only takes "<< (clock() - start) / (double)CLOCKS_PER_SEC << "s." << endl;
 }
 
+/*
+type: attribute
+intdata: tconst / startYear / runtimeMinutes
+stringdata: excludsive of above
+c: search / delete
+*/
 void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 {
-	stack<Record*> tree;		//it is stack
-	tree.push(head);
+	clock_t start = clock();
+
+	Record* currNode = head;
 	int n;
 	int i = 0;
 	if (type == "tconst") n = 1;
@@ -197,177 +225,148 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 	switch (n)		//n--> 1:tconst 2:titleType 3:0 4:startYear 5:genres 6:runtimeMinutes
 	{
 	case 1:		//tconst
-		i = 0;
-		while (tree.size() > 0)
-		{
-			Record* temp = tree.top();
-			if (temp->tconst == intdata) {
-				if (c == 1) {
-					cout << "Searched:\t";
-					temp->printRecord();
-					i++;
-					break;
-				}
-				else if (c == 2)
-				{
-					cout << "Deleted:\t";
-					reset(temp);
-					break;
-				}
-			}
-			else
-			{
-				tree.pop();
-				if (temp->right != NULL)
-					tree.push(temp->right);
-				if (temp->left != NULL)
-					tree.push(temp->left);
+	{
+		Record * r = search_tconst(intdata);
+		if (c == 1) {
+			if (r->tconst == -1)
+				cout << "NO record." << endl << endl;
+			else {
+				cout << "There have 1 record." << endl;
+				r->printRecord();
 			}
 		}
-		if (i == 0) cout << "NO record." << endl << endl;
-		else cout << "There have " << i << " record." << endl << endl;
-		break;
+		else if (c == 2) {
+			reset(r);
+		}
+	}
+
+	break;
+
 	case 2:		//titleType
-		i = 0;
-		while (tree.size() > 0)
+		//currNode = firstAppearTitle[titleType2Int(stringdata)];
+		while (currNode)
 		{
-			Record* temp = tree.top();
-			if (temp->titleType == stringdata) {
+			if (currNode->titleType == stringdata) {
 				if (c == 1) {
 					cout << "Searched:\t";
-					temp->printRecord();
+					currNode->printRecord();
 					i++;
 				}
 				else if (c == 2)
 				{
-					cout << "Deleted:\t";
-					reset(temp);
+					//cout << "Deleted:\t";
+					reset(currNode);
 					i++;
-				}
+				}	
 			}
-			tree.pop();
-			if (temp->right != NULL)
-				tree.push(temp->right);
-			if (temp->left != NULL)
-				tree.push(temp->left);
+			currNode = currNode->next;
 		}
-		if (i == 0) cout << "NO record." << endl << endl;
-		else cout << "There have " << i << " record." << endl << endl;
+		if (i == 0)
+			cout << "NO record." << endl << endl;
+		else
+			cout << "There have " << i << " record." << endl << endl;
 		break;
 	case 3:		//primaryTitle
-		i = 0;
-		while (tree.size() > 0)
+		while (currNode)
 		{
-			Record* temp = tree.top();
-			if (temp->primaryTitle == stringdata) {
+			if (currNode->primaryTitle == stringdata) {
 				if (c == 1) {
 					cout << "Searched:\t";
-					temp->printRecord();
+					currNode->printRecord();
 					i++;
 					break;
 				}
 				else if (c == 2)
 				{
 					cout << "Deleted:\t";
-					reset(temp);
+					reset(currNode);
 					i++;
 					break;
 				}
 			}
 			else
-			{
-				tree.pop();
-				if (temp->right != NULL)
-					tree.push(temp->right);
-				if (temp->left != NULL)
-					tree.push(temp->left);
-			}
+				currNode = currNode->next;
 		}
-		if (i == 0) cout << "NO record." << endl << endl;
-		else cout << "There have " << i << " record." << endl << endl;
+		if (i == 0)
+			cout << "NO record." << endl << endl;
+		else
+			cout << "There have " << i << " record." << endl << endl;
 		break;
 	case 4:		//startYear
-		i = 0;
-		while (tree.size() > 0)
+		while (currNode)
 		{
-			Record* temp = tree.top();
-			if (temp->startYear == intdata) {
+			if (currNode->startYear == intdata) {
 				if (c == 1) {
 					cout << "Searched:\t";
-					temp->printRecord();
+					currNode->printRecord();
 					i++;
 				}
 				else if (c == 2)
 				{
 					cout << "Deleted:\t";
-					reset(temp);
+					reset(currNode);
 					i++;
 				}
 			}
-			tree.pop();
-			if (temp->right != NULL)
-				tree.push(temp->right);
-			if (temp->left != NULL)
-				tree.push(temp->left);
+			else
+				currNode = currNode->next;
 		}
-		if (i == 0) cout << "NO record." << endl << endl;
-		else cout << "There have " << i << " record." << endl << endl;
+		if (i == 0)
+			cout << "NO record." << endl << endl;
+		else
+			cout << "There have " << i << " record." << endl << endl;
 		break;
 	case 5:		//genres
-		i = 0;
-		while (tree.size() > 0)
+		while (currNode)
 		{
-			Record* temp = tree.top();
-			if (temp->genres[0] == stringdata || temp->genres[1] == stringdata || temp->genres[2] == stringdata) {
+			if (currNode->genres[0] == stringdata || currNode->genres[1] == stringdata || currNode->genres[2] == stringdata) {
 				if (c == 1) {
 					cout << "Searched:\t";
-					temp->printRecord();
+					currNode->printRecord();
 					i++;
 				}
 				else if (c == 2)
 				{
 					cout << "Deleted:\t";
-					reset(temp);
+					reset(currNode);
 					i++;
 				}
 			}
-			tree.pop();
-			if (temp->right != NULL)
-				tree.push(temp->right);
-			if (temp->left != NULL)
-				tree.push(temp->left);
+			else
+				currNode = currNode->next;
 		}
-		if (i == 0) cout << "NO record." << endl << endl;
-		else cout << "There have " << i << " record." << endl << endl;
+		if (i == 0)
+			cout << "NO record." << endl << endl;
+		else
+			cout << "There have " << i << " record." << endl << endl;
 		break;
 	case 6:		//runtimeMinutes
-		i = 0;
-		while (tree.size() > 0)
+		while (currNode)
 		{
-			Record* temp = tree.top();
-			if (temp->runtimeMinutes == intdata) {
+			if (currNode->runtimeMinutes == intdata) {
 				if (c == 1) {
 					cout << "Searched:\t";
-					temp->printRecord();
+					currNode->printRecord();
 					i++;
 				}
 				else if (c == 2)
 				{
 					cout << "Deleted:\t";
-					reset(temp);
+					reset(currNode);
 					i++;
 				}
 			}
-			tree.pop();
-			if (temp->right != NULL)
-				tree.push(temp->right);
-			if (temp->left != NULL)
-				tree.push(temp->left);
+			else
+				currNode = currNode->next;
 		}
-		if (i == 0) cout << "NO record." << endl << endl;
-		else cout << "There have " << i << " record." << endl << endl;
+		if (i == 0)
+			cout << "NO record." << endl << endl;
+		else
+			cout << "There have " << i << " record." << endl << endl;
 		break;
 	}
+	
+	cout << (clock() - start) / CLOCKS_PER_SEC << "s" << endl;
 }
 
 Record * LinkList::search_tconst(long num)
@@ -390,43 +389,4 @@ Record * LinkList::search_tconst(long num)
 	{
 		return currNode;
 	}
-}
-
-Record * LinkList::bottom_Left(Record * node)
-{
-	if (node->left == NULL)
-		return node;
-	else {
-		node = node->left;
-		return bottom_Left(node);
-	}
-}
-
-void LinkList::swapNodePosition(Record * a, Record * b) // for heap tree rebalance
-{
-	if (a == head) {
-		head = b;
-	}
-	else if (b == head) {
-		head = a;
-	}
-
-
-	Record* temp;
-	int tdepth;
-	tdepth = a->depth;
-	a->depth = b->depth;
-	b->depth = tdepth;
-
-	temp = a->parent;
-	a->parent = b->parent;
-	b->parent = temp;
-
-	temp = a->left;
-	a->left = b->left;
-	b->left = temp;
-
-	temp = a->right;
-	a->right = b->right;
-	b->right = temp;
 }
