@@ -1,5 +1,6 @@
 #include "LinkList.h"
 #include "binary.h"
+#include <ctime>
 #include <stack>
 using namespace std;
 
@@ -12,12 +13,17 @@ LinkList::LinkList()
 	firstAppearTitle[2] = NULL;
 	firstAppearTitle[3] = NULL;
 	firstAppearTitle[4] = NULL;
+	firstAppearTitle[5] = NULL;
+	firstAppearTitle[6] = NULL;
 }
 
 
 LinkList::~LinkList()
 {
-
+	delete head;
+	delete tile;
+	delete firstAppearTitle;
+	delete lastAppearTitle;
 }
 
 void LinkList::insert2heap(ifstream & infile)
@@ -33,7 +39,7 @@ void LinkList::insert2heap(ifstream & infile)
 		tile->next = record;
 		tile = record;
 
-		//short, movie, tvMovie, tvShort, tvMiniSeries
+		//short, movie, tvMovie, tvShort, tvMiniSeries, tvEpisode
 		int i = titleType2Int(record->titleType);
 		if (firstAppearTitle[i] == NULL) { //initialize head of each title type 
 			firstAppearTitle[i] = record;
@@ -43,7 +49,6 @@ void LinkList::insert2heap(ifstream & infile)
 			Record* r = lastAppearTitle[i];
 			r->nextSameTitle = record;
 			lastAppearTitle[i] = record;
-			record->nextSameTitle = NULL;
 		}
 		
 
@@ -128,7 +133,7 @@ void LinkList::push_back(ifstream & infile)
 void LinkList::reset(Record * Node)
 {
 	Record* temp = Node;
-	Node->printRecord();
+	// Node->printRecord();
 	temp->tconst = -1;
 	temp->primaryTitle = "";
 	temp->titleType = "";
@@ -200,6 +205,8 @@ c: search / delete
 */
 void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 {
+	clock_t start = clock();
+
 	Record* currNode = head;
 	int n;
 	int i = 0;
@@ -249,7 +256,8 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					cout << "Deleted:\t";
+					//cout << "Deleted:\t";
+					//currNode->printRecord();
 					reset(currNode);
 					i++;
 				}
@@ -361,6 +369,8 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 			cout << "There have " << i << " record." << endl << endl;
 		break;
 	}
+
+	cout << (clock() - start) / CLOCKS_PER_SEC << "s" << endl;
 }
 
 Record * LinkList::search_tconst(long num)
