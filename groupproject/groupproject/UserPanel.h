@@ -74,7 +74,7 @@ int searchOption() {
 		<< "4. startYear" << endl
 		<< "5. genres" << endl
 		<< "6. runtimeMinutes" << endl
-		<< "6. title type and genres" << endl
+		<< "7. title type and genres" << endl
 		<< "Choose: ";
 	cin >> chooser;
 	return chooser;
@@ -113,7 +113,7 @@ int DeleteOption() {
 		<< "4. startYear" << endl
 		<< "5. genres" << endl
 		<< "6. runtimeMinutes" << endl
-		<< "6. title type and genres" << endl
+		<< "7. title type and genres" << endl
 		<< "Choose: ";
 	cin >> chooser;
 	return chooser;
