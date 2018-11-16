@@ -13,7 +13,6 @@ Record::Record()
 	next = NULL;
 	left = NULL;
 	right = NULL;
-	nextSameTitle = NULL;
 }
 
 Record::~Record()

@@ -8,13 +8,6 @@ LinkList::LinkList()
 	Record* emptyNode = new Record();
 	head = emptyNode;
 	tile = NULL;
-	firstAppearTitle[0] = NULL;
-	firstAppearTitle[1] = NULL;
-	firstAppearTitle[2] = NULL;
-	firstAppearTitle[3] = NULL;
-	firstAppearTitle[4] = NULL;
-	firstAppearTitle[5] = NULL;
-	firstAppearTitle[6] = NULL;
 }
 
 
@@ -35,20 +28,6 @@ void LinkList::insert2heap(ifstream & infile)
 	else {
 		tile->next = record;
 		tile = record;
-
-		//short, movie, tvMovie, tvShort, tvMiniSeries
-		int i = titleType2Int(record->titleType);
-		if (firstAppearTitle[i] == NULL) { //initialize head of each title type 
-			firstAppearTitle[i] = record;
-			lastAppearTitle[i] = record;
-		}
-		else {
-			Record* r = lastAppearTitle[i];
-			r->nextSameTitle = record;
-			lastAppearTitle[i] = record;
-			record->nextSameTitle = NULL;
-		}
-		
 
 		Record* currNode = head;
 		bool dir;
@@ -278,7 +257,7 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					cout << "Deleted:\t";
+					//cout << "Deleted:\t";
 					reset(currNode);
 					i++;
 					break;
@@ -303,7 +282,7 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					cout << "Deleted:\t";
+					//cout << "Deleted:\t";
 					reset(currNode);
 					i++;
 				}
@@ -327,7 +306,7 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					cout << "Deleted:\t";
+					//cout << "Deleted:\t";
 					reset(currNode);
 					i++;
 				}
@@ -351,7 +330,7 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					cout << "Deleted:\t";
+					//cout << "Deleted:\t";
 					reset(currNode);
 					i++;
 				}

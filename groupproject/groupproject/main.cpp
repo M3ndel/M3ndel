@@ -106,6 +106,34 @@ int main() {
 					intdata = searchANDdelRunTime();
 					list.searchANDdel("runtime", intdata, stringdata, c);
 					break;
+				case 7: {
+					int i = 0;
+					string tt, g;
+					Record* curr = list.head;
+					cout << endl << "type in title type: ";
+					cin >> tt;
+					cout << endl << "type in genre: ";
+					cin >> g;
+					while (curr) {
+						if (curr->genres[0] == g || curr->genres[1] == g || curr->genres[2] == g && curr->titleType == tt) {
+							if (c == 1) {
+								cout << "Searched:\t";
+								curr->printRecord();
+								i++;
+							}
+						}
+						else if (c == 2) {
+							//cout << "Deleted:\t";
+							list.reset(curr);
+							i++;
+						}
+						curr = curr->next;
+					}
+					if (i == 0)
+						cout << "NO record." << endl << endl;
+					else
+						cout << "There have " << i << " record." << endl << endl;
+				}
 				}
 				system("pause");
 				system("cls");

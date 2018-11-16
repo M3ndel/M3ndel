@@ -5,38 +5,11 @@
 #include <fstream>
 using namespace std;
 
-//short = 0, movie = 1, tvMovie = 2, tvShort = 3, tvMiniSeries = 4
-inline int titleType2Int(string tt) {
-	if (tt == "short")
-		return 0;
-	
-	if (tt == "movie")
-		return 1;
-
-	if (tt == "tvMovie")
-		return 2;
-
-	if (tt == "tvShort")
-		return 3;
-
-	if (tt == "tvMiniSeries")
-		return 4;
-
-	if (tt == "tvEpisode")
-		return 5;
-
-	if (tt == "tvSeries")
-		return 6;
-}
-
 class LinkList
 {
 public:
-
 	Record* head;
 	Record* tile;
-	Record** firstAppearTitle = new Record*[7];
-	Record** lastAppearTitle = new Record*[7];
 
 public:
 	LinkList();
