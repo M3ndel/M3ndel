@@ -18,6 +18,7 @@ StackArr::StackArr(long n) {
 			push(Bin[i]);
 		}
 	}
+	delete[] Bin;
 }
 
 StackArr::~StackArr() {

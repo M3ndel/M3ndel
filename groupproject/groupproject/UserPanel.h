@@ -80,29 +80,6 @@ int searchOption() {
 	return chooser;
 }
 
-int searchTconst() {
-	int id;
-	cout << "Type in the tconst: ";
-	cin >> id;
-	return id;
-}
-
-string searchTitleType() {
-	string tt;
-	cout << "Type in the title type: ";
-	cin >> tt;
-	transform(tt.begin(), tt.end(), tt.begin(), ::tolower);
-	return tt;
-}
-
-string searchGenre() {
-	string g;
-	cout << "Type in the genre: ";
-	cin >> g;
-	transform(g.begin(), g.end(), g.begin(), ::tolower);
-	return g;
-}
-
 int DeleteOption() {
 	int chooser;
 	//tconst, titleType, primaryTitle, startYear, genres, runtimeMinutes
@@ -119,6 +96,13 @@ int DeleteOption() {
 	return chooser;
 }
 
+int searchTconst() {
+	int id;
+	cout << "Type in the tconst: ";
+	cin >> id;
+	return id;
+}
+
 int searchANDdelTconst() {
 	int id;
 	cout << "Type in the tconst: ";
@@ -131,8 +115,6 @@ string searchANDdelTitleType() {
 	cout << "Type in the title type: ";
 	cin.ignore();
 	getline(cin, tt);
-	//cin >> tt;
-	//transform(tt.begin(), tt.end(), tt.begin(), ::tolower);
 	return tt;
 }
 

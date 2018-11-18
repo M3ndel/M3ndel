@@ -57,7 +57,16 @@ void Record::setPrimaryTitle(istream & infile)
 
 void Record::setStartYear(istream & infile)
 {
+		char character;
+	infile.get(character);
+	if (character == 92) { // 92 in ascii is "\", to check if the year is available
+		startYear = -1;
+		infile.ignore(); // to ignore the character "N"
+	}
+	else {
+		infile.unget();
 		infile >> startYear;
+	}	
 }
 
 void Record::setRunTimeMinutes(istream & infile)

@@ -7,6 +7,7 @@ LinkList::LinkList()
 {
 	Record* emptyNode = new Record();
 	head = emptyNode;
+	cList_h = NULL;
 	tile = NULL;
 }
 
@@ -21,27 +22,45 @@ void LinkList::insert2heap(ifstream & infile)
 	Record* record = new Record();
 	record->setRecord(infile);
 
-	if (record->tconst == 1) {
-		head = record;
+	if (cList_h == NULL) {
+		cList_h = record;
 		tile = record;
 	}
-	else {
-		tile->next = record;
-		tile = record;
+	else if (cList_h->tconst > record->tconst) {
+		record->next = cList_h;
+		cList_h = record;
+	}
+	else if (tile->tconst > record->tconst) {
+		Record* currNode = head;
+		Record* posNode = head->next;
+		for (; !(currNode->tconst < record->tconst && posNode->tconst > record->tconst); posNode = posNode->next) {
+			currNode = currNode->next;
+		}
+		currNode->next = record;
+		record->next = posNode;
+	}
 
+	if (record->tconst == 1) { // if record->tconst == 1, then it should definitly be the head of heap tree
+		Record* hptr = head; // hptr point to the head, which is pointing to a dynamically allocated varible;
+
+		record->left = hptr->left;
+		record->right = hptr->right;
+
+		head = record;
+		delete hptr; // delete hptr to release memory from the old head
+	}
+	else {
 		Record* currNode = head;
 		bool dir;
-		StackArr path(record->tconst);
+		StackArr path(record->tconst); // stack of 0 and 1 to inducate what position the node will fall into
 		int numstepremaind = log(record->tconst) / log(2);
 		while (--numstepremaind > 0) { // loop throught the tree until it is one step away from the destination 
 			dir = path.pop(); // false mean left, true mean right
 			if (dir) {
-				if (currNode->right) { // check is there a node when go deeper
+				if (currNode->right) { // check if there is a node when go deeper
 					currNode = currNode->right;
 				}
-				else {
-					// cout << "insert fill up node " << currNode->tconst << endl;
-					// system("pause");
+				else { // dir lead to nullptr,
 					Record* newNode = new Record(); // create a new node to
 					currNode->right = newNode; // fill up the empty region of the tree
 					currNode = currNode->right;
@@ -52,30 +71,28 @@ void LinkList::insert2heap(ifstream & infile)
 					currNode = currNode->left;
 				}
 				else {
-					// cout << "insert fill up node" << currNode->tconst << endl;
-					// system("pause");
 					Record* newNode = new Record();
 					currNode->left = newNode;
 					currNode = currNode->left;
 				}
 			}
 		}
-		if (path.isEmpty()) {
-			head = record;
-		}
+		
 		dir = path.pop();
 		if (dir) {
-			if (currNode->right) { 
-				Record* rptr = currNode->right;
+			if (currNode->right) { // if currNode->right is not NULL, then there is a overlap od node, the old one should be replaced and deleted
+				Record* rptr = currNode->right; // rptr point to the currNode->right, which is dynamically allocated
 				
 				record->left = rptr->left;
 				record->right = rptr->right;
 				
 				currNode->right = record;
-				delete rptr;
+				delete rptr; // delete rptr to release memory from the overlaped old node
 			}
-			else {
-				currNode->right = record;
+			else { // the direaction pointing to null,
+				currNode->right = record; //  and every dataset is in ascending order,
+				tile->next = record; // so record->tconst must be biggest of all, 
+				tile = record; // so record is the last node in the list
 			}
 		}
 		else {
@@ -90,30 +107,16 @@ void LinkList::insert2heap(ifstream & infile)
 			}
 			else {
 				currNode->left = record;
+				tile->next = record;
+				tile = record;
 			}
 		}
-	}
-}
-
-void LinkList::push_back(ifstream & infile)
-{
-	Record* record = new Record();
-	record->setRecord(infile);
-
-	if (head == NULL) {
-		head = record;
-		tile = record;
-	}
-	else {
-		tile->next = record;
-		tile = record;
 	}
 }
 
 void LinkList::reset(Record * Node)
 {
 	Record* temp = Node;
-	//Node->printRecord();
 	temp->tconst = -1;
 	temp->primaryTitle = "";
 	temp->titleType = "";
@@ -132,22 +135,22 @@ void LinkList::searchANDdelsomeYearMinute(int first, int last, int c, int n)
 {
 	clock_t start = clock();
 
-	Record* currNode = head;
+	Record* currNode = cList_h;
 	int i = 0;
 	while (currNode)
 	{
-		if (c == 1) {
-			if (currNode->tconst >= first && currNode->tconst <= last && n == 1) {
+		if (c == 1) { // search by range
+			if (currNode->tconst >= first && currNode->tconst <= last && n == 1) { // search tconst by range
 				cout << "Searched:\t";
 				currNode->printRecord();
 				i++;
 			}
-			else if (currNode->startYear >= first && currNode->startYear <= last && n == 2) {
+			else if (currNode->startYear >= first && currNode->startYear <= last && n == 2) {  // search start year by range
 				cout << "Searched:\t";
 				currNode->printRecord();
 				i++;
 			}
-			else if (currNode->runtimeMinutes >= first && currNode->runtimeMinutes <= last && n == 3) {
+			else if (currNode->runtimeMinutes >= first && currNode->runtimeMinutes <= last && n == 3) { // search run time minutes range
 				cout << "Searched:\t";
 				currNode->printRecord();
 				i++;
@@ -191,7 +194,7 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 {
 	clock_t start = clock();
 
-	Record* currNode = head;
+	Record* currNode = cList_h;
 	int n;
 	int i = 0;
 	if (type == "tconst") n = 1;
@@ -207,7 +210,7 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 	{
 		Record * r = search_tconst(intdata);
 		if (c == 1) {
-			if (r->tconst == -1)
+			if (r)
 				cout << "NO record." << endl << endl;
 			else {
 				cout << "There have 1 record." << endl;
@@ -215,14 +218,14 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 			}
 		}
 		else if (c == 2) {
-			reset(r);
+			if(r)
+				reset(r);
 		}
 	}
 
 	break;
 
 	case 2:		//titleType
-		//currNode = firstAppearTitle[titleType2Int(stringdata)];
 		while (currNode)
 		{
 			if (currNode->titleType == stringdata) {
@@ -233,7 +236,6 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					//cout << "Deleted:\t";
 					reset(currNode);
 					i++;
 				}	
@@ -257,7 +259,6 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					//cout << "Deleted:\t";
 					reset(currNode);
 					i++;
 					break;
@@ -282,7 +283,6 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					//cout << "Deleted:\t";
 					reset(currNode);
 					i++;
 				}
@@ -306,7 +306,6 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					//cout << "Deleted:\t";
 					reset(currNode);
 					i++;
 				}
@@ -330,7 +329,6 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 				}
 				else if (c == 2)
 				{
-					//cout << "Deleted:\t";
 					reset(currNode);
 					i++;
 				}
