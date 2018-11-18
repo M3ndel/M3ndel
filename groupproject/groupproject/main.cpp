@@ -115,7 +115,7 @@ int main() {
 					cout << endl << "type in genre: ";
 					cin >> g;
 					while (curr) {
-						if (curr->genres[0] == g || curr->genres[1] == g || curr->genres[2] == g && curr->titleType == tt) {
+						if ((curr->genres[0] == g || curr->genres[1] == g || curr->genres[2] == g) && curr->titleType == tt) {
 							if (c == 1) {
 								cout << "Searched:\t";
 								curr->printRecord();
