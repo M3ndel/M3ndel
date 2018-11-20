@@ -210,11 +210,12 @@ void LinkList::searchANDdel(string type, int intdata, string stringdata, int c)
 	{
 		Record * r = search_tconst(intdata);
 		if (c == 1) {
-			if (r)
-				cout << "NO record." << endl << endl;
-			else {
+			if (r) {
 				cout << "There have 1 record." << endl;
 				r->printRecord();
+			}
+			else {
+				cout << "NO record." << endl << endl;
 			}
 		}
 		else if (c == 2) {
